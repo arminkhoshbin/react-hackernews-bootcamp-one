@@ -33,10 +33,26 @@ const ARTICLES = [
   },
 ]
 
-const VIEW =
-  <NewsFeed
-    articles={ARTICLES}
-  />
+class Container extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			articles: []
+		};
+	}
 
+	componentWillMount() {
+		setTimeout(() =>
+      this.setState({ articles: ARTICLES })
+    , 500);
+	}
 
-ReactDOM.render(VIEW, document.getElementById('root'));
+	render() {
+		return (
+			<NewsFeed
+    		articles={this.state.articles} />
+    );
+	}
+}
+
+ReactDOM.render(<Container />, document.getElementById('root'));
