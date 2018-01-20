@@ -1,0 +1,7 @@
+/**
+ * source/Component/Article/styles.css
+ */
+.myClass {
+  border: 0.001rem dashed;
+  padding: 20px;
+}
