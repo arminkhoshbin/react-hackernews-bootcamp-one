@@ -1,25 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import getArticles from 'hacker-news-top-ten';
 
 import NewsFeed from './View/NewsFeed';
 
 class Container extends React.Component {
+	_getStyles() {
+		return {
+			loadingStyle: {
+				textAlign: 'center',
+				color: 'green',
+				fontSize: '5em'
+			}
+		};
+	}
+
   constructor(props) {
     super(props);
     this.state = { articles: [] };
   }
 
   componentWillMount() {
-    setTimeout(() =>
-      this.setState({ articles: ARTICLES })
-    , 3000);
+    getArticles().then(articles => {
+    	this.setState({ articles: articles });
+    })
   }
 
   render() {
+  	const styles = this._getStyles();
+
     return (
-      <NewsFeed
-        articles={this.state.articles}
-      />
+    	<div>
+    		{ this.state.articles.length > 0 ? (
+		      <NewsFeed
+		        articles={this.state.articles}
+		      />
+		   	) : (
+		   		<h1 style={styles.loadingStyle}>Loading...</h1>
+		   	)}
+	     </div>
     );
   }
 }
